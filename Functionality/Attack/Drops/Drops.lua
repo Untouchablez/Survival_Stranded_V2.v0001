@@ -56,7 +56,11 @@ function KeepThemDroppingThread()
         -- spawn the units and attach them
         local army = "ARMY_ENEMY"
         local group = Platoons.RandomArmyGroup()
+     
+
         local transports, transportees = Platoons.SpawnArmyGroup(group, army, spawn)
+       
+
         ScenarioFramework.AttachUnitsToTransports(transportees, transports)
 
         -- Implement SAFE Paths to drop transports
@@ -81,8 +85,7 @@ function KeepThemDroppingThread()
         IssueMove(transports, spawn)
         -- Destroy the transport after moving back to spawn
         IssueDestroySelf(transports)
-        
-
+    
         -- tell the units to attack once dropped
         ForkThread(
             OnDetachedThread,
@@ -112,7 +115,7 @@ function KeepThemDroppingThread()
                     IssueFormAggressiveMove(units,ScenarioUtils.MarkerToPosition("SURVIVAL_CENTER_1"),'GrowthFormation', 0)
             end 
         )
-    
+
 
     end
     ----- break here

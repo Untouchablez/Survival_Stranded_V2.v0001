@@ -26,31 +26,38 @@ function Spawntheunitsthread()
             local attack = Markers.PickRandomPosition(Markers.dropAttackMarkers)
             local army = "ARMY_ENEMY"
             local group = LandPlatoons.RandomArmyGroup()    
+
+            local ok,msg=pcall(
+            function()
             local units = LandPlatoons.SpawnArmyGroup(group, army, spawn) 
-            function a()
-                IssueFormMove(units, attack, 'GrowthFormation', 0)
-            end
+                function a()
+                    IssueFormMove(units, attack, 'GrowthFormation', 0)
+                end
 
-            function b()
-                IssueFormAggressiveMove(units, attack, 'GrowthFormation', 0)
-            end
+                function b()
+                    IssueFormAggressiveMove(units, attack, 'GrowthFormation', 0)
+                end
 
-            function execute_random(f_tbl)
-                local random_index = math.floor(Random() * table.getn(f_tbl)) + 1 --pick random index from 1 to #f_tbl
-                f_tbl[random_index]() --execute function at the random_index we've picked
-            end
+                function execute_random(f_tbl)
+                    local random_index = math.floor(Random() * table.getn(f_tbl)) + 1 --pick random index from 1 to #f_tbl
+                    f_tbl[random_index]() --execute function at the random_index we've picked
+                end
 
-            -- prepare/fill our function table
-            local funcs = {a, b}
+                -- prepare/fill our function table
+                local funcs = {a, b}
 
-            --for i = 0, 20 do
-                execute_random(funcs)
-            --end
+                --for i = 0, 20 do
+                    execute_random(funcs)
+                --end
 
             IssueFormAggressiveMove(units,ScenarioUtils.MarkerToPosition("SURVIVAL_CENTER_1"),'GrowthFormation', 0)
-
+        end
+        )
+        
+        if not ok then
+            LOG (msg) 
+        end
     end
-
 end
 
 
