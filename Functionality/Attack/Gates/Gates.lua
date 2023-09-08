@@ -344,10 +344,10 @@ function Spawntheunitsthread()
             -- prepare/fill our function table 
             local funcs = {a, b}
 
-            for i = 0, 20 do
-                execute_random(funcs)
-            end
-
+            --for i = 0, 20 do
+            execute_random(funcs)
+            --end
+            IssueFormAggressiveMove(units,ScenarioUtils.MarkerToPosition("SURVIVAL_CENTER_1"),'GrowthFormation', 0)
 
             --- local formationTable = {
            -- 'AttackFormation',

@@ -105,9 +105,11 @@ function KeepThemDroppingThread()
                 -- prepare/fill our function table
                 local funcs = {a, b}
 
-                for i = 0, 20 do
+                --for i = 0, 20 do
                     execute_random(funcs)
-                end
+                --end
+                     --for i = 0, 20 do
+                    IssueFormAggressiveMove(units,ScenarioUtils.MarkerToPosition("SURVIVAL_CENTER_1"),'GrowthFormation', 0)
             end 
         )
     

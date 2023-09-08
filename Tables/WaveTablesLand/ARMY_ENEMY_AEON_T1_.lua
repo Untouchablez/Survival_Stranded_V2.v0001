@@ -13,7 +13,7 @@
 Tables = { 
     {
         --Amount of Attack Locations that are generated. Code will make 1 extra location that is the Defence Object Location
-        AttackLocations = 100,
+        AttackLocations = 10,
         --Select a Table from Areas.lua or Markers.lua
         AreaOrMarkerCache = "dropAttackMarkers",
         --Specify if selected Table is a Area or Marker so code knows what .lua file it needs 
@@ -31,7 +31,7 @@ Tables = {
         },
     },
     {
-        AttackLocations = 100,
+        AttackLocations = 10,
         AreaOrMarkerCache = "dropAttackMarkers",
         CacheType = "Marker",
         OrderId = 3,
@@ -44,7 +44,7 @@ Tables = {
         },
     },
     {
-        AttackLocations = 100,
+        AttackLocations = 10,
         AreaOrMarkerCache = "dropAttackMarkers",
         CacheType = "Marker",
         OrderId = 4,
@@ -57,7 +57,7 @@ Tables = {
         },
     },
     {
-        AttackLocations = 100,
+        AttackLocations = 10,
         AreaOrMarkerCache = "dropAttackMarkers",
         CacheType = "Marker",
         OrderId = 6,

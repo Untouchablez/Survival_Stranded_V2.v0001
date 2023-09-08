@@ -11,7 +11,7 @@ local GameTime = import(ScenarioInfo.MapPath .. 'Src/GameTime.lua')
 local GatePlatoons = import(ScenarioInfo.MapPath .. 'Functionality/Tables/GatePlatoons.lua')
 local LandPlatoons = import(ScenarioInfo.MapPath .. 'Functionality/Tables/LandPlatoons.lua')
 local LandAttack = import(ScenarioInfo.MapPath .. 'Functionality/Attack/Land/LandAttack.lua')
-local LandAttackV2 = import(ScenarioInfo.MapPath .. 'Functionality/Attack/Land/LandAttackV2.lua')
+--local LandAttackV2 = import(ScenarioInfo.MapPath .. 'Functionality/Attack/Land/LandAttackV2.lua')
 local Markers = import(ScenarioInfo.MapPath .. 'Src/Markers.lua')
 local Missions = import(ScenarioInfo.MapPath .. 'Functionality/Attack/Missions/Missions.lua')
 local NavyPlatoons = import(ScenarioInfo.MapPath .. 'Functionality/Tables/NavyPlatoons.lua')
@@ -86,19 +86,19 @@ function OnStart(self)
  ForkThread(GatePlatoons.OnTick) 
 
  -- Initiate the Drops spawns and attack moves
- --ForkThread(Drops.KeepThemDroppingThread)
+ ForkThread(Drops.KeepThemDroppingThread)
   -- Initiate the Navy spawns and attack moves
- --ForkThread(NavyAttack.Spawntheunitsthread)
+ ForkThread(NavyAttack.Spawntheunitsthread)
  -- Initiate the Land spawns and attack moves
- --(LandAttack.Spawntheunitsthread)
+ ForkThread(LandAttack.Spawntheunitsthread)
  
  
  -- initiate and spawn land / navy gates
  Gates.OnStart()
  -- Initiate the spawns from the land / navy gates
- --ForkThread(Gates.Spawntheunitsthread)
- --ForkThread(Gates.Spawntheunitsthread2)
- --ForkThread(Gates.Spawntheunitsthread3)
+ ForkThread(Gates.Spawntheunitsthread)
+ ForkThread(Gates.Spawntheunitsthread2)
+ ForkThread(Gates.Spawntheunitsthread3)
 
  -- initiate boss thread
  ForkThread(Boss.SpawnRandomBossThread)
@@ -107,6 +107,7 @@ function OnStart(self)
  ForkThread(Missions.OnTick)
 
  -- Update the Game time objective for the defence object
+ --ForkThread(DefenceObject.OnTick)
  ForkThread(DefenceObject.UpdateGameTimeObjective)
 
  -- Adaptive Mass Spawning configuration
@@ -139,7 +140,9 @@ function OnStart(self)
  
   -- spawnwaves don't have a unit cap
   SetIgnoreArmyUnitCap("ARMY_ENEMY", true)
-  LandAttackV2.SetupWaveSpawner()
+  --LandAttackV2.SetupWaveSpawner()
+
+
 end
 
 
@@ -186,7 +189,6 @@ function GetActivePlayerCount()
 
     return activePlayerCount
 end
-
 
 
 

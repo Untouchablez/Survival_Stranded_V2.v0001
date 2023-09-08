@@ -6,66 +6,49 @@ local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 
 function GametimegoalFunction()
-    -- Total Game Time in seconds (45 mins)
     local GameTimeLength = 2700
-    -- Remaining game time in seconds
     local remainingTimeSeconds = (GameTimeLength + ScenarioInfo.Options.opt_Survival_BuildTime) - GetGameTimeSeconds()
-    -- Convert remaining time to minutes and seconds
     local remainingMinutes = math.floor(remainingTimeSeconds / 60)
     local remainingSeconds = remainingTimeSeconds - math.floor(remainingTimeSeconds / 60) * 60
-    -- Return the remaining time in both minutes and seconds
     return remainingMinutes, remainingSeconds
 end
 
-function OnTick()
-    -- Get the remaining time in minutes and seconds
-    local remainingMinutes, remainingSeconds = GametimegoalFunction()
-    -- Format the remaining time as "mm:ss"
-    local remainingTimeFormatted = string.format("%02d:%02d", remainingMinutes, math.floor(remainingSeconds))
-
-end
-
-
---Forkthread (UpdateGameTimeObjective) & Check for Win condition
+   
 function UpdateGameTimeObjective()
-    while true do
+        while true do
+            local remainingMinutes, remainingSeconds = GametimegoalFunction()
+            local remainingTimeFormatted = string.format("%02d:%02d", remainingMinutes, remainingSeconds)
+            Survival_DefUnit:SetCustomName("Time " .. remainingTimeFormatted .. " Remaining")
+            WaitSeconds(1)
 
-                local remainingMinutes, remainingSeconds = GametimegoalFunction()
-                local remainingTimeSeconds = remainingMinutes * 60 + remainingSeconds
-                -- Format the remaining time as "mm:ss"
-                local remainingTimeFormatted = string.format("%02d:%02d", remainingMinutes, remainingSeconds)
-                -- Set the custom name with the remaining time
-                Survival_DefUnit:SetCustomName("Time " .. remainingTimeFormatted .. " Remaining")
-                WaitSeconds(1)
-
-       if remainingMinutes == 0 then
-            
-
-			ScenarioFramework.Dialogue(import('/maps/X1CA_004/X1CA_004_strings.lua').X04_M03_210, nil, true) -- took care of business
-            local text = 'center \r\n enter \r\n row3';
-            local size = 25;
-            local fade = 9;
+            remainingSeconds = math.floor(remainingSeconds) -- Round down to the nearest second
+            LOG("Remaining Game Time: " .. remainingMinutes .. " minutes and " .. remainingSeconds .. " seconds")
     
-            -- what other options are there?
-            local alignment = 'center';
-            -- what format should the color be in?
-            local color = '00bfff';
-            -- alignment
-            local offset = "          "
+            if remainingMinutes == 0 and remainingSeconds == 0 then
+                ScenarioFramework.Dialogue(import('/maps/X1CA_004/X1CA_004_strings.lua').X04_M03_210, nil, true)
+                local text = 'center \r\n enter \r\n row3';
+                local size = 25;
+                local fade = 9;
+                local alignment = 'center';
+                local color = '00bfff';
+                local offset = "          "
+                
                 for k = 1, 7 do 
                     PrintText("", size + 10, color, fade, alignment);
                 end
-                -- print title
+                
                 PrintText(offset .. "The Black Sun has been protected", size + 10, color, fade, alignment);
                 PrintText(offset .. " You Have Won Well Done!", size + 10, color, fade, alignment);
-	
+    
                 for i, army in ListArmies() do
                     if (army == "ARMY_1" or army == "ARMY_2" or army == "ARMY_3" or army == "ARMY_4" or army == "ARMY_5" or army == "ARMY_6") then
                         GetArmyBrain(army):OnVictory()
                     end
-			    end
-			EndGame()
-		end
+                end
+    
+            EndGame()
+            WaitSeconds(1) -- Add this line
+        end
     end
 end
 
