@@ -29,29 +29,32 @@ function Spawntheunitsthread()
         local army = "ARMY_ENEMY"
         local group = NavyPlatoons.RandomArmyGroup()  
 
-        local ok, msg = pcall(function()
-            local units = NavyPlatoons.SpawnArmyGroup(group, army, spawn)
+        local ok, msg = pcall(
+            function()
+        local units = NavyPlatoons.SpawnArmyGroup(group, army, spawn)
 
-            local function a()
-                IssueFormMove(units, attack, 'GrowthFormation', 0)
-            end
+            --local function a()#
+        IssueFormAggressiveMove(units, ScenarioUtils.MarkerToPosition("SURVIVAL_CENTER_1"), 'GrowthFormation', 0)
+        
+        --         IssueFormMove(units, ScenarioUtils.MarkerToPosition("SURVIVAL_CENTER_1"), 'GrowthFormation', 0)
+        --     end
 
-            local function b()
-                IssueFormAggressiveMove(units, attack, 'GrowthFormation', 0)
-            end
+        --     local function b()
+        --         IssueAttack(units, ScenarioUtils.MarkerToPosition("SURVIVAL_CENTER_1"), 'GrowthFormation', 0)
+        --     end
 
-            local function c()
-                IssueFormMove(units, ScenarioUtils.MarkerToPosition("SURVIVAL_CENTER_1"), 'GrowthFormation', 0)
-            end
+        --     local function c()
+        --         IssueFormMove(units, ScenarioUtils.MarkerToPosition("SURVIVAL_CENTER_1"), 'GrowthFormation', 0)
+        --     end
 
-            local funcs = {a, b}
+        --     local funcs = {a, b}
 
-            -- Randomly execute function 'a' or 'b'
-            local random_index = math.floor(Random() * 2) + 1
-            funcs[random_index]()
+        --     -- Randomly execute function 'a' or 'b'
+        --     local random_index = math.floor(Random() * 2) + 1
+        --     funcs[random_index]()
 
-            -- Always execute function 'c'
-            c()
+        --     -- Always execute function 'c'
+        --     c()
         end)
 
         if not ok then
@@ -61,10 +64,10 @@ function Spawntheunitsthread()
 end
 
 
-function execute_random(f_tbl)
-    local random_index = math.floor(Random() * table.getn(f_tbl)) + 1 --pick random index from 1 to #f_tbl
-    f_tbl[random_index]() --execute function at the random_index we've picked
-end
+-- function execute_random(f_tbl)
+--     local random_index = math.floor(Random() * table.getn(f_tbl)) + 1 --pick random index from 1 to #f_tbl
+--     f_tbl[random_index]() --execute function at the random_index we've picked
+-- end
 
     
 

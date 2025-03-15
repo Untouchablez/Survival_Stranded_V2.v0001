@@ -62,7 +62,7 @@ end
 
 --local offset = 0 -- set to startup time
 local offset = ScenarioInfo.Options.opt_Survival_BuildTime
-local timeToUnlockTech = 900 -- time in seconds between each tech unlock (every 15 mins)
+local timeToUnlockTech = 1000 -- time in seconds between each tech unlock (every 15 mins)
 
 ---- Starting tech lvl
 local techIntegral = 1
@@ -75,7 +75,7 @@ local techIdentifier = techIdentifiers[techIntegral]
 
 local function CheckValidityOfCache(cache)
     if table.getn(cache) == 0 then
-        WARN("Cache is empty: cacheDropPlatoons")
+        --WARN("Cache is empty: cacheDropPlatoons")
     end
 end
 

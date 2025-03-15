@@ -7,7 +7,6 @@ local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 
 local Wrecks = import(ScenarioInfo.MapPath .. 'Src/Wrecks.lua')
 
-
 cachenavyPlatoons = { }
 
 function RandomArmyGroup()
@@ -18,7 +17,7 @@ end
 
 function SpawnArmyGroup(tblData, army, position)
     if tblData == nil then
-        LOG("CacheNavyPlatoons tblData is nil!")
+        --LOG("CacheNavyPlatoons tblData is nil!")
         return {} -- Return an empty table to avoid further errors
     end
     
@@ -64,7 +63,7 @@ end
 
 --local offset = 0 -- set to startup time
 local offset = ScenarioInfo.Options.opt_Survival_BuildTime
-local timeToUnlockTech = 800 -- in seconds
+local timeToUnlockTech = 920 -- in seconds
 
 ---- Starting tech lvl
 local techIntegral = 1

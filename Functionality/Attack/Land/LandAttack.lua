@@ -28,7 +28,7 @@ function Spawntheunitsthread()
             local group = LandPlatoons.RandomArmyGroup()    
 
             local ok,msg=pcall(
-            function()
+                function()
             local units = LandPlatoons.SpawnArmyGroup(group, army, spawn) 
                 function a()
                     IssueFormMove(units, attack, 'GrowthFormation', 0)

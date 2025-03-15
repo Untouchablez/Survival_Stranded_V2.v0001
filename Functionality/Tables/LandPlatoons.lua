@@ -16,13 +16,19 @@ function RandomArmyGroup()
 end
 
 function SpawnArmyGroup(tblData, army, position)
+    if tblData == nil then
+        --LOG("CacheNavyPlatoons tblData is nil!")
+        return {} -- Return an empty table to avoid further errors
+    end
+
     local units = { }
     ----LOGHEEEEEEEEEEEEEEEEEEEEEEEEEEERRRRRRRRRRRRRRRRRRRRRREEEEEEEE);
+    local unit = nil -- Add this line to declare and initialize the 'unit' variable
     for k, bp in tblData do 
+
+  
     local unit = CreateUnitHPR(bp, army, position[1], position[2], position[3], 0, 0, 0)
     
-    -- Set the health mutiplier
-
      unit:SetMaxHealth(unit:GetMaxHealth() * ScenarioInfo.Options.opt_Survival_HealthMultiplier)
      unit:SetHealth(unit,unit:GetMaxHealth())
                -- Set the damadge multiplier
@@ -34,7 +40,6 @@ function SpawnArmyGroup(tblData, army, position)
             end
 
     table.insert(units, unit)
-    --LOG("check1: " .. repr(units))
     end
     return units
 
@@ -54,7 +59,7 @@ end
 
 --local offset = 0 -- set to startup time
 local offset = ScenarioInfo.Options.opt_Survival_BuildTime
-local timeToUnlockTech = 480 -- in seconds
+local timeToUnlockTech = 580 -- in seconds
 
 ---- Starting tech lvl
 local techIntegral = 1

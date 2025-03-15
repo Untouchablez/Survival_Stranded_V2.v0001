@@ -15,16 +15,16 @@ function OnTick()
     -- make the AI unaware of this box # replace ENEMY_1 with army name
     ScenarioFramework.SetIgnorePlayableRect("ARMY_ENEMY", true)
     
-    -- make all the players aware of this area and playable at the set time
---    if Gametime >= 40 then
---        ScenarioFramework.SetPlayableArea('STAGE1AREA', false)
---    elseif Gametime <= 36 and Gametime >= 26 then
- --       ScenarioFramework.SetPlayableArea('STAGE2AREA', false)
---    elseif Gametime <= 25 and Gametime >= 11 then
---        ScenarioFramework.SetPlayableArea('STAGE3AREA', false)
---    elseif Gametime <= 10 and Gametime >= 0 then
+     -- make all the players aware of this area and playable at the set time
+    if Gametime <= 600 and Gametime >=47 then
+        ScenarioFramework.SetPlayableArea('STAGE1AREA', false)
+    elseif Gametime <= 46 and Gametime >= 36 then
+        ScenarioFramework.SetPlayableArea('STAGE2AREA', false)
+    elseif Gametime <= 35 and Gametime >= 21 then
+        ScenarioFramework.SetPlayableArea('STAGE3AREA', false)
+    elseif Gametime <= 20 and Gametime >= 0 then
         ScenarioFramework.SetPlayableArea('STAGE4AREA', false)
---    end
+    end
 
     -- Introduce a delay of 1 second before the next iteration
     -- You may need to replace this with an appropriate delay function

@@ -1,4 +1,4 @@
-ScenarioInfo.MapPath = '/maps/survival_stranded_v2.v0001/'
+ScenarioInfo.MapPath = '/maps/survival_stranded_v2.v0002/'
 
 local Areas = import(ScenarioInfo.MapPath .. 'Src/Areas.lua')
 local AllFactions = import(ScenarioInfo.MapPath .. 'Src/AllFactions.lua')
@@ -23,6 +23,7 @@ local ResourceSpawning = import(ScenarioInfo.MapPath .. 'Src/ResourceSpawning.lu
 local ResourceTable = import(ScenarioInfo.MapPath .. 'Survival_Stranded_V2_tables.lua')
 local UnitRevealer = import(ScenarioInfo.MapPath .. 'Src/UnitRevealer.lua')
 local Wrecks = import(ScenarioInfo.MapPath .. 'Src/Wrecks.lua')
+
 
 -- Forged Alliance 
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')

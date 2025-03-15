@@ -135,7 +135,7 @@ function OnTick()
             end
         end
 
-        if remainingMinutes == 44 then
+        if remainingMinutes == 15 then
             -------------- GC 2 START PATROL -------------
             local markerName = "salvo1"  -- Replace with the name of the marker where you want to spawn the unit
             -- Get the position of the marker
@@ -153,7 +153,7 @@ function OnTick()
             end
         end
       
-        if remainingMinutes == 44 then
+        if remainingMinutes == 15 then
             -------------- GC 2 START PATROL -------------
             local markerName = "salvo2"  -- Replace with the name of the marker where you want to spawn the unit
 
@@ -172,7 +172,7 @@ function OnTick()
             end
         end
 
-        if remainingMinutes == 44 then
+        if remainingMinutes == 10 then
             local markerName = "enemybase1"  -- Replace with the name of the marker where you want to spawn the unit
 
             -- Get the position of the marker
@@ -190,7 +190,7 @@ function OnTick()
             end
         end
 
-        if remainingMinutes == 44 then
+        if remainingMinutes == 10 then
             local markerName = "enemybase2"  -- Replace with the name of the marker where you want to spawn the unit
 
             -- Get the position of the marker
@@ -208,7 +208,7 @@ function OnTick()
             end
         end
 
-        if remainingMinutes == 40 then
+        if remainingMinutes == 8 then
             --LOG("Executing nuke launch code...")
             local markerName = "enemybase3"  -- Replace with the name of the marker where you want to spawn the unit
 
@@ -229,7 +229,7 @@ function OnTick()
                     yolo1 = true  -- Set the flag to indicate that the GC has been spawned
                     
                     ForkThread(function()
-                        for i = 1, 20 do
+                        for i = 1, 30 do
                             local area = Areas.PickRandomArea(Areas.enemynukearea)
                             local attack = Areas.PickRandomPointInArea(area)          
                             yolo:GiveNukeSiloAmmo(1)
@@ -242,7 +242,7 @@ function OnTick()
             end
         end
 
-        if remainingMinutes == 40 then
+        if remainingMinutes == 8 then
             local markerName = "enemybase4"  -- Replace with the name of the marker where you want to spawn the unit
 
             -- Get the position of the marker
@@ -261,7 +261,7 @@ function OnTick()
                     yolo2 = true  -- Set the flag to indicate that the GC has been spawned 
                     
                     ForkThread(function()
-                        for i = 1, 20 do
+                        for i = 1, 30 do
                             local area = Areas.PickRandomArea(Areas.enemynukearea)
                             local attack = Areas.PickRandomPointInArea(area)          
                             yolo:GiveNukeSiloAmmo(1)
@@ -274,7 +274,7 @@ function OnTick()
             end
         end
 
-        if remainingMinutes == 44 then
+        if remainingMinutes == 20 then
             local markerName = "enemybase5"  -- Replace with the name of the marker where you want to spawn the unit
 
             -- Get the position of the marker
@@ -292,7 +292,7 @@ function OnTick()
             end
         end
 
-        if remainingMinutes == 44 then
+        if remainingMinutes == 20 then
             local markerName = "enemybase6"  -- Replace with the name of the marker where you want to spawn the unit
 
             -- Get the position of the marker
@@ -310,7 +310,7 @@ function OnTick()
             end
         end
 
-        if remainingMinutes == 44 then
+        if remainingMinutes == 20 then
             local markerName = "enemybase7"  -- Replace with the name of the marker where you want to spawn the unit
 
             -- Get the position of the marker
@@ -328,7 +328,7 @@ function OnTick()
             end
         end
 
-        if remainingMinutes == 44 then
+        if remainingMinutes == 20 then
             local markerName = "enemybase8"  -- Replace with the name of the marker where you want to spawn the unit
 
             -- Get the position of the marker

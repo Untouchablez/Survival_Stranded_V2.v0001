@@ -6,7 +6,7 @@ local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 
 function GametimegoalFunction()
-    local GameTimeLength = 2700
+    local GameTimeLength = 3600
     local remainingTimeSeconds = (GameTimeLength + ScenarioInfo.Options.opt_Survival_BuildTime) - GetGameTimeSeconds()
     local remainingMinutes = math.floor(remainingTimeSeconds / 60)
     local remainingSeconds = remainingTimeSeconds - math.floor(remainingTimeSeconds / 60) * 60
