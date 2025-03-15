@@ -3,6 +3,7 @@ ScenarioInfo.MapPath = '/maps/survival_stranded_v2.v0001/'
 local Areas = import(ScenarioInfo.MapPath .. 'Src/Areas.lua')
 local AllFactions = import(ScenarioInfo.MapPath .. 'Src/AllFactions.lua')
 local Boss = import(ScenarioInfo.MapPath .. 'Functionality/Attack/Boss/Boss.lua')
+local IdleUnits = import(ScenarioInfo.MapPath .. 'Src/IdleUnits.lua')
 local DefenceObject = import(ScenarioInfo.MapPath .. 'Functionality/Defence/DefenceObject.lua')
 local DefaultOptions = import(ScenarioInfo.MapPath .. 'Src/DefaultOptions.lua')
 local Drops = import(ScenarioInfo.MapPath .. 'Functionality/Attack/Drops/Drops.lua')
@@ -115,6 +116,10 @@ function OnStart(self)
  -- intialise the resource spawning
  ResourceSpawning.SetupResources(PlayerIndex, ResourceTable)
 
+
+ -- check for enemy idle units and kill them after 5 minutes
+ --ForkThread(IdleUnits.CheckIdleEnemyUnits)
+
  -- setup army specific things
  for i, army in ListArmies() do
     if (army == "ARMY_1" or army == "ARMY_2" or army == "ARMY_3" or army == "ARMY_4"  or army == "ARMY_5"  or army == "ARMY_6") then
@@ -139,9 +144,8 @@ function OnStart(self)
   SetArmyColor("ARMY_ALLY",128, 128, 128)
  
   -- spawnwaves don't have a unit cap
-  SetIgnoreArmyUnitCap("ARMY_ENEMY", true)
+  -- SetIgnoreArmyUnitCap("ARMY_ENEMY", true)
   --LandAttackV2.SetupWaveSpawner()
-
 
 end
 
@@ -175,6 +179,7 @@ function TheRedOrTheBluePill()
         
     ResourceTable =	ResourceTable
     PlayerArmyCount = table.getn(PlayerArmies)
+    SetIgnoreArmyUnitCap("ARMY_ENEMY", true)
 end
 
 function GetActivePlayerCount()

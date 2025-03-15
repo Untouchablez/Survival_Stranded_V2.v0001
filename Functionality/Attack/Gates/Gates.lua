@@ -169,7 +169,7 @@ end
 function Spawntheunitsthread()
 
     -- wait time before Land starts to spawn default 35 + )
-    local seconds = 10 + ScenarioInfo.Options.opt_Survival_BuildTime
+    local seconds = 35 + ScenarioInfo.Options.opt_Survival_BuildTime
  
     --- seconds before Land starts to attack
     WaitSeconds (seconds)
@@ -257,8 +257,11 @@ function Spawntheunitsthread()
         -- identify the AI 
         local army = "ARMY_ENEMY"
         -- Call LandPlatoons lua and pick a random army group
-        local group = GatePlatoons.RandomArmyGroup()    
-        local units = GatePlatoons.SpawnArmyGroup(group, army, spawn)
+        local group = GatePlatoons.RandomArmyGroup()   
+        
+        local ok,msg=pcall(
+            function()
+            local units = GatePlatoons.SpawnArmyGroup(group, army, spawn)
  
             -- Randomizer pick a random function - In this case a radmon attack move for groups of units and random path to tyarget. 
             function a()
@@ -356,8 +359,13 @@ function Spawntheunitsthread()
            -- 'TravellingFormation',
            -- }
 
+            end
+              )
+        
+            if not ok then
+            LOG (msg) 
+        end
     end
----- break here
 end
 
 function Spawntheunitsthread2()
@@ -372,8 +380,7 @@ function Spawntheunitsthread2()
         --if count > maximum then
         --    break
         if EnemyGate3.Dead and EnemyGate4.Dead then
-        
-            break
+           break
         end
 
           -- if unit.Dead then
@@ -400,55 +407,57 @@ function Spawntheunitsthread2()
         -- identify the AI 
         local army = "ARMY_ENEMY"
         -- Call LandPlatoons lua and pick a random army group
-        local group = GatePlatoons.RandomArmyGroup()    
-        local units = GatePlatoons.SpawnArmyGroup(group, army, spawn)
+        local group = GatePlatoons.RandomArmyGroup()   
+        
+        local ok,msg=pcall(
+            function()
+            local units = GatePlatoons.SpawnArmyGroup(group, army, spawn)
  
-            -- Randomizer pick a random function - In this case a radmon attack more for groups of units. 
-            function a()
-                local rand = Utilities.GetRandomInt(1,3)
-                if (rand == 1) then
-                    position = ScenarioUtils.MarkerToPosition("attackpointrand1")
-                    IssueFormAggressiveMove(units, position, 'GrowthFormation', 0)
-                elseif (rand == 2) then
-                    IssueFormAggressiveMove(units, attack, 'GrowthFormation', 0)
-                elseif (rand == 3) then
-                    IssueFormMove(units, attack, 'AttackFormation', 0)    
+                -- Randomizer pick a random function - In this case a radmon attack more for groups of units. 
+                function a()
+                    local rand = Utilities.GetRandomInt(1,3)
+                    if (rand == 1) then
+                        position = ScenarioUtils.MarkerToPosition("attackpointrand1")
+                        IssueFormAggressiveMove(units, position, 'GrowthFormation', 0)
+                    elseif (rand == 2) then
+                        IssueFormAggressiveMove(units, attack, 'GrowthFormation', 0)
+                    elseif (rand == 3) then
+                        IssueFormMove(units, attack, 'AttackFormation', 0)    
+                    end
                 end
-            end
 
-            function b()
-                local rand = Utilities.GetRandomInt(1,3)
-                if (rand == 1) then
-                    position = ScenarioUtils.MarkerToPosition("attackpointrand2")
-                    IssueFormAggressiveMove(units, position, 'GrowthFormation', 0)
-                elseif (rand == 2) then
-                    IssueFormAggressiveMove(units, attack, 'GrowthFormation', 0)
-                elseif (rand == 3) then
-                    IssueFormMove(units, attack, 'AttackFormation', 0)
+                function b()
+                    local rand = Utilities.GetRandomInt(1,3)
+                    if (rand == 1) then
+                        position = ScenarioUtils.MarkerToPosition("attackpointrand2")
+                        IssueFormAggressiveMove(units, position, 'GrowthFormation', 0)
+                    elseif (rand == 2) then
+                        IssueFormAggressiveMove(units, attack, 'GrowthFormation', 0)
+                    elseif (rand == 3) then
+                        IssueFormMove(units, attack, 'AttackFormation', 0)
+                    end
+                    
                 end
-                
+
+                function execute_random(f_tbl)
+                    local random_index = math.floor(Random() * table.getn(f_tbl)) + 1 --pick random index from 1 to #f_tbl
+                    f_tbl[random_index]() --execute function at the random_index we've picked
+                end
+
+                -- prepare/fill our function table
+                local funcs = {a, b}
+
+                --for i = 0, 20 do
+                    execute_random(funcs)
+                --end
+
+            
             end
+            )
 
-            function execute_random(f_tbl)
-                local random_index = math.floor(Random() * table.getn(f_tbl)) + 1 --pick random index from 1 to #f_tbl
-                f_tbl[random_index]() --execute function at the random_index we've picked
-            end
-
-            -- prepare/fill our function table
-            local funcs = {a, b}
-
-            for i = 0, 20 do
-                execute_random(funcs)
-            end
-
-
-            --- local formationTable = {
-           -- 'AttackFormation',
-           -- 'GrowthFormation',
-           -- 'SixWideFormation',
-           -- 'TravellingFormation',
-           -- }
-
+            if not ok then
+                LOG (msg) 
+        end
     end
     ---- break here
 end
@@ -456,7 +465,7 @@ end
 function Spawntheunitsthread3()
 
     -- wait time before navy starts to spawn default 35 + )
-    local seconds = 10 + ScenarioInfo.Options.opt_Survival_BuildTime
+    local seconds = 600 + ScenarioInfo.Options.opt_Survival_BuildTime
  
     --- seconds before navy starts to attack
     WaitSeconds (seconds)
@@ -464,19 +473,27 @@ function Spawntheunitsthread3()
 
         WaitSeconds (ScenarioInfo.Options.opt_Survival_GateSpawnInterval) 
 
-            if EnemyGate5.Dead and EnemyGate6.Dead and EnemyGate7.Dead and EnemyGate8.Dead and EnemyGate9.Dead and EnemyGate10.Dead and EnemyGate11.Dead then
-            break
-            end
+        if EnemyGate5.Dead and EnemyGate6.Dead and EnemyGate7.Dead and EnemyGate8.Dead and EnemyGate9.Dead and EnemyGate10.Dead and EnemyGate11.Dead then
+        break
+        end
         
 
-        local attack = Markers.PickRandomPosition(Markers.destenemynavyMarkers)
-        local spawn = Markers.PickRandomPosition(Markers.navyspawnMarkers)
-        local army = "ARMY_ENEMY"
-        local group = NavyPlatoons.RandomArmyGroup()    
-        local units = NavyPlatoons.SpawnArmyGroup(group, army, spawn)
- 
-        IssueFormAggressiveMove(units, attack, 'GrowthFormation', 0)
+            local attack = Markers.PickRandomPosition(Markers.destenemynavyMarkers)
+            local spawn = Markers.PickRandomPosition(Markers.navyspawnMarkers)
+            local army = "ARMY_ENEMY"
+            local group = NavyPlatoons.RandomArmyGroup() 
 
+            local ok,msg=pcall(  
+                function()
+                local units = NavyPlatoons.SpawnArmyGroup(group, army, spawn)
+                IssueFormAggressiveMove(units, attack, 'GrowthFormation', 0)
+                IssueFormAggressiveMove(units,ScenarioUtils.MarkerToPosition("SURVIVAL_CENTER_1"),'GrowthFormation', 0)
+                end    
+                
+                )
+                if not ok then
+                LOG (msg) 
+            end
     end
     ---- break here
 end

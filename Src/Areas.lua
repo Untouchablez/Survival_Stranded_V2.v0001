@@ -7,6 +7,7 @@ local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 
 spawnNavyArea = { }
 spawnLandArea = { }
+enemynukearea = { }
 
 function PickRandomArea(areas)
     local n = table.getn(areas)
@@ -53,5 +54,17 @@ function OnStart()
            table.insert(spawnLandArea, rect)
         end
     end
+
+-- area for launching enemy nukes
+    local areas = ScenarioInfo.Env.Scenario.Areas
+    for k = 1, 10, 1 do 
+        local name = "PlayerArea_" .. k 
+            if areas[name] then 
+        local area = areas[name]
+        local rect = Rect(area.rectangle[1], area.rectangle[2], area.rectangle[3], area.rectangle[4])
+        table.insert(enemynukearea, rect)
+        end
+    end 
+
 end
 

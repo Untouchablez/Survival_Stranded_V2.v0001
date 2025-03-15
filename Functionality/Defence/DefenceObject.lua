@@ -119,7 +119,7 @@ function OnStart()
 				
 		self.OldOnKilled(self, instigator, type, overkillRatio);
 
-		--Survival_GameState = 3; --defenders defeat
+		Survival_GameState = 3; --defenders defeat
 
 		for i, army in ListArmies() do
 
@@ -128,6 +128,7 @@ function OnStart()
 				GetArmyBrain(army):OnDefeat();
 			end
 		end
+        EndGame()
 	end
 
 	--Survival_DefLastHP = Survival_DefUnit:GetHealth();

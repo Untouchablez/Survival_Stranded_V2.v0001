@@ -16,15 +16,15 @@ function OnTick()
     ScenarioFramework.SetIgnorePlayableRect("ARMY_ENEMY", true)
     
     -- make all the players aware of this area and playable at the set time
-    if Gametime >= 44 then
-        ScenarioFramework.SetPlayableArea('STAGE1AREA', false)
-    elseif Gametime <= 43 and Gametime >= 26 then
-        ScenarioFramework.SetPlayableArea('STAGE2AREA', false)
-    elseif Gametime <= 25 and Gametime >= 11 then
-        ScenarioFramework.SetPlayableArea('STAGE3AREA', false)
-    elseif Gametime <= 10 and Gametime >= 0 then
+--    if Gametime >= 40 then
+--        ScenarioFramework.SetPlayableArea('STAGE1AREA', false)
+--    elseif Gametime <= 36 and Gametime >= 26 then
+ --       ScenarioFramework.SetPlayableArea('STAGE2AREA', false)
+--    elseif Gametime <= 25 and Gametime >= 11 then
+--        ScenarioFramework.SetPlayableArea('STAGE3AREA', false)
+--    elseif Gametime <= 10 and Gametime >= 0 then
         ScenarioFramework.SetPlayableArea('STAGE4AREA', false)
-    end
+--    end
 
     -- Introduce a delay of 1 second before the next iteration
     -- You may need to replace this with an appropriate delay function
